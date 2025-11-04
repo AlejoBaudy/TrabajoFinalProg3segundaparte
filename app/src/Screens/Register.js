@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Text, View, Pressable } from "react-native";
+import { Text, View, StyleSheet, FlatList, ActivityIndicator, Pressable , TextInput} from "react-native";
+import { auth, db } from "../firebase/config"
 
-class Register extends Component{
-
-
-constructor(props) {
+class Register extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       email: "",
@@ -139,4 +138,5 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
 export default Register;

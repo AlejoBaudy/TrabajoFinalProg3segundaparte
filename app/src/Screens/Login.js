@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, Pressable } from "react-native";
-
+import { Text, View, Pressable,StyleSheet, TextInput } from "react-native";
+import { auth } from "../firebase/config";
+//hacer 2 control sesion y logout
 class Login extends Component{
   constructor(props) {
     super(props);
