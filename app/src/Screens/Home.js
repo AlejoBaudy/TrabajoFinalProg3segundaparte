@@ -42,11 +42,14 @@ class Home extends Component {
       <View style={styles.container}>
         <DynamicForms/>
         <Text style={styles.title}>Posts</Text>
-        <FlatList
+      <FlatList
           data={this.state.posts}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Post post={item} />}
-        />
+          renderItem={({ item }) => (
+            <Post post={item} navigation={this.props.navigation} />
+      )}
+/>
+
       </View>
     );
   }

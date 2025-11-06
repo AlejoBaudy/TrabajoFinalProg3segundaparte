@@ -11,28 +11,42 @@ class Register extends Component {
       userName: ""
     };
   }
-register(email, pass, userName){
-  auth.createUserWithEmailAndPassword(email, pass)
-    .then((response) => {
-      return db.collection('users').add({
-        email: response.user.email,          
-        nombreUsuario: userName,            
-        createdAt: Date.now()                
+
+  register(email, pass, userName){
+    auth.createUserWithEmailAndPassword(email, pass)
+      .then((response) => {
+        return db.collection('users').add({
+          email: response.user.email,          
+          nombreUsuario: userName,            
+          createdAt: Date.now()                
+        });
+      })
+      .then(() => {
+        this.setState({ registered: true });
+        this.props.navigation.navigate('Login');
+      })
+      .catch((error) => {
+        this.setState({ error: 'Fallo en el registro.' });
       });
-    })
-    .then(() => {
-      this.setState({ registered: true });
-      this.props.navigation.navigate('Login');
-    })
-    .catch((error) => {
-      this.setState({ error: 'Fallo en el registro.' });
-    });
-}
+  }
 
+  onSubmit(){
+    const { email, password, userName } = this.state;
 
+    if (!email.includes("@")) {
+      this.setState({ error: "El email ingresado no es válido." });
+      return;
+    }
+    if (password.length < 6) {
+      this.setState({ error: "La password debe tener una longitud mínima de 6 caracteres." });
+      return;
+    }
+    if (userName.length < 3) {
+      this.setState({ error: "El nombre de usuario debe tener al menos 3 caracteres." });
+      return;
+    }
 
-  onSubmit() {
-    this.register(this.state.email, this.state.password, this.state.userName);
+    this.register(email, password, userName);
   }
 
   render() {
@@ -40,17 +54,10 @@ register(email, pass, userName){
       <View style={styles.container}>
         <Text style={styles.title}>Registro</Text>
 
-        <Pressable
-          style={styles.blueButton}
-          onPress={() => this.props.navigation.navigate('Login')}
-        >
-          <Text> Ya tengo cuenta </Text>
-        </Pressable>
-
         <TextInput
           style={styles.field}
           keyboardType='email-address'
-          placeholder='email'
+          placeholder='Email'
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email}
         />
@@ -58,7 +65,7 @@ register(email, pass, userName){
         <TextInput
           style={styles.field}
           keyboardType='default'
-          placeholder='password'
+          placeholder='Password'
           secureTextEntry={true}
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password}
@@ -76,13 +83,11 @@ register(email, pass, userName){
           <Text style={styles.buttonText}> Registrate </Text>
         </Pressable>
 
-        <View>
-          <Text>
-            {this.state.password}
-            {this.state.email}
-            {this.state.userName}
-          </Text>
-        </View>
+        <Pressable
+          style={styles.blueButton}
+          onPress={() => this.props.navigation.navigate('Login')}>
+          <Text> Ya tengo cuenta </Text>
+        </Pressable>
       </View>
     );
   }
@@ -102,7 +107,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   blueButton: {
-    backgroundColor: "#007BFF",
     borderRadius: 10,
     marginBottom: 15,
     width: "50%",
@@ -131,10 +135,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "#28a745",
-    width: "50%"
+    width: "15%"
   },
   buttonText: {
-    color: "#fff",
+    color: "Black",
     textAlign: "center"
   }
 });

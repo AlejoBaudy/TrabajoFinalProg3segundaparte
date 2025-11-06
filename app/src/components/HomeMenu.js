@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-//chequear todos lo import
 import Home from '../Screens/Home';
 import Profile from '../Screens/Profile';
 import NewPost from '../Screens/NewPost';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import HomeStackScreen from "./HomeStack";
+
 const Tab = createBottomTabNavigator();
 
 class HomeMenu extends Component {
@@ -19,13 +20,6 @@ class HomeMenu extends Component {
             )
           }}
         />
-        <Tab.Screen name="Home" component={Home} options={{ 
-            headerShown: false,
-            tabBarIcon: () => (
-              <AntDesign name="home" size={24} color="black" />
-            )
-          }}
-        />
           <Tab.Screen name="Newpost" component={NewPost} options={{ 
             headerShown: false,
             tabBarIcon: () => (
@@ -33,6 +27,13 @@ class HomeMenu extends Component {
             )
           }}
         />  
+        <Tab.Screen name="Home" component={HomeStackScreen} options={{
+            headerShown: false,
+            tabBarIcon: () => (
+              <AntDesign name="arrowright" size={24} color="black" />
+            )
+          }}
+        />
       </Tab.Navigator>
     );
   }

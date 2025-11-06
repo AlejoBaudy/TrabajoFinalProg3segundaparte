@@ -18,7 +18,8 @@ class NewPost extends Component {
         owner: auth.currentUser.email,
         description: this.state.description,
         createdAt: Date.now(),
-        likes: []
+        likes: [],
+        Comentarios: []
       })
       .then(() => {
         this.setState({

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet, Pressable, TextInput } from "react-native";
 import { db, auth } from "../firebase/config";
 import firebase from "firebase"; 
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Comentarios from "../Screens/Comentarios";
 class Post extends Component {
   constructor(props) {
     super(props);
@@ -58,6 +61,14 @@ class Post extends Component {
             <Text style={styles.email}>Likear</Text>
           </Pressable>
         )}
+          <Pressable
+             style={styles.boton}
+            onPress={() => this.props.navigation.navigate('Comentarios',{
+                            info: this.props.post.data,
+                             id: this.props.post.id
+           })}>
+            <Text>Comentar</Text>
+          </Pressable>
       </View>
     );
   }

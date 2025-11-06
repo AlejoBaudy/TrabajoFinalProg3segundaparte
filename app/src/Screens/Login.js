@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, Pressable,StyleSheet, TextInput } from "react-native";
-import { auth } from "../firebase/config";
-//hacer 2 control sesion y logout
-class Login extends Component{
+import { Text, View, StyleSheet, Pressable, TextInput } from "react-native";
+import { auth } from "../firebase/config"
+
+class Login extends Component {
   constructor(props) {
     super(props);
       this.state={
@@ -46,18 +46,6 @@ login(email, pass){
           onPress={() => this.props.navigation.navigate('Register')}>
           <Text style={styles.buttonText}>No tengo cuenta</Text>
         </Pressable>
-
-        <Pressable
-          style={styles.orangeButton}
-          onPress={() => this.props.navigation.navigate('HomeMenu')}
-        ><Text>Entrar a la APP</Text>
-        </Pressable>
-        <View>
-              <Text>
-                        {this.state.password}
-                        {this.state.email}
-             </Text>
-         </View>
       </View>
     );
   }
@@ -79,10 +67,9 @@ login(email, pass){
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    marginTop: 300,
   },
   title: {
     fontSize: 26,
@@ -140,6 +127,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   }
   
-})
+});
 
 export default Login;
+
