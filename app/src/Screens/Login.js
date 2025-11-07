@@ -20,6 +20,20 @@ login(email, pass){
       this.setState({error: "credenciales invalidas"})
     })
  }
+  onSubmit(){
+   if (!this.state.email.includes("@")) {
+    this.setState({ error: "El email ingresado no es válido." });
+    return;
+  }
+  if (this.state.password.length < 6) {
+    this.setState({ error: "La password debe tener una longitud mínima de 6 caracteres." });
+    return;
+  }
+
+
+
+  this.login(this.state.email, this.state.password);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -58,20 +72,7 @@ login(email, pass){
       </View>
     );
   }
-  onSubmit(){
-   if (!this.state.email.includes("@")) {
-    this.setState({ error: "El email ingresado no es válido." });
-    return;
-  }
-  if (this.state.password.length < 6) {
-    this.setState({ error: "La password debe tener una longitud mínima de 6 caracteres." });
-    return;
-  }
-
-
-
-  this.login(this.state.email, this.state.password);
-  }
+ 
 }
 
 const styles = StyleSheet.create({

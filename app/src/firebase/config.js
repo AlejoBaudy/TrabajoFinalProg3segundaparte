@@ -2,7 +2,7 @@ import app from "firebase/app"
 import firebase from "firebase"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCL1ner14Jq9c89entxi5nyL5gExWEgM1g",
+   apiKey: "AIzaSyCL1ner14Jq9c89entxi5nyL5gExWEgM1g",
   authDomain: "fir-final-2fc2d.firebaseapp.com",
   projectId: "fir-final-2fc2d",
   storageBucket: "fir-final-2fc2d.firebasestorage.app",

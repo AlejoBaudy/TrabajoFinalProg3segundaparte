@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./src/Screens/Login";
-import Register from "./src/Screens/Register";
+import Login from "./src/screens/Login";
+import Register from "./src/screens/Register";
 import HomeMenu from "./src/components/HomeMenu";
-import NewPost from "./src/Screens/NewPost";
-import Comentarios from "./src/Screens/Comentarios";
-import StackPresent from "./src/Screens/StackPresent";
+import NewPost from "./src/screens/NewPost";
+import Comentarios from "./src/screens/Comentarios";
+import StackPresent from "./src/screens/StackPresent";
 
 const Stack = createNativeStackNavigator();
 

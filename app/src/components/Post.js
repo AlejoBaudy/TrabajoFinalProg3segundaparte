@@ -4,7 +4,7 @@ import { db, auth } from "../firebase/config";
 import firebase from "firebase"; 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Comentarios from "../Screens/Comentarios";
+import Comentarios from "../screens/Comentarios";
 class Post extends Component {
   constructor(props) {
     super(props);

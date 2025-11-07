@@ -28,9 +28,10 @@ class Register extends Component {
       .catch((error) => {
         this.setState({ error: 'Fallo en el registro.' });
       });
-  }
 
-  onSubmit(){
+}
+
+ onSubmit(){
     const { email, password, userName } = this.state;
 
     if (!email.includes("@")) {
@@ -91,7 +92,7 @@ class Register extends Component {
       </View>
     );
   }
-}
+} 
 
 const styles = StyleSheet.create({
   container: {

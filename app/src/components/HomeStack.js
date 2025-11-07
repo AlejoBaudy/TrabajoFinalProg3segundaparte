@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "../Screens/Home";
-import Comentarios from "../Screens/Comentarios";
+import Home from "../screens/Home";
+import Comentarios from "../screens/Comentarios";
 
 ;
 
