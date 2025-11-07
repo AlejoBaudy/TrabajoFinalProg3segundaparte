@@ -8,6 +8,7 @@ import Register from "./src/Screens/Register";
 import HomeMenu from "./src/components/HomeMenu";
 import NewPost from "./src/Screens/NewPost";
 import Comentarios from "./src/Screens/Comentarios";
+import StackPresent from "./src/Screens/StackPresent";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ class App extends Component {
                 headerShown: false,
               }}
             >
+              <Stack.Screen name="StackHome" component={StackPresent} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="HomeMenu" component={HomeMenu} />

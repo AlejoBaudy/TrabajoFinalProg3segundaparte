@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Pressable, TextInput } from "react-native";
+import { Text, View, StyleSheet,Image, Pressable, TextInput } from "react-native";
 import { auth } from "../firebase/config"
 
 class Login extends Component {
@@ -23,29 +23,38 @@ login(email, pass){
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>INGRESAR</Text>
-         <TextInput style={styles.field} 
-                    keyboardType='email-address'
-                    placeholder='email'
-                    onChangeText={ text => this.setState({email:text}) }
-                    value={this.state.email} />
-                <TextInput style={styles.field} 
-                    keyboardType='default'
-                    placeholder='password'
-                    secureTextEntry={true} 
-                    onChangeText={ text => this.setState({password:text}) }
-                    value={this.state.password}/>  
-                <Pressable style={styles.button} onPress={() => this.onSubmit()}>
-                      <Text style={styles.buttonText}> Registrate </Text> 
-                    </Pressable>
-                    {this.state.error ? (
-                          <Text style={styles.error}>{this.state.error}</Text>
-                        ) : null}
-        <Pressable
-          style={styles.blueButton}
-          onPress={() => this.props.navigation.navigate('Register')}>
-          <Text style={styles.buttonText}>No tengo cuenta</Text>
-        </Pressable>
+         <View style={styles.izq}>
+                  <Image
+                    source={require("../../assets/LogoAFA.png")}
+                    style={styles.bigLogo}
+                    resizeMode="contain"
+                  />
+          </View>
+        <View style={styles.der}>
+          <Text style={styles.titulo}>INGRESAR</Text>
+          <TextInput style={styles.bloque} 
+                      keyboardType='email-address'
+                      placeholder="Email" 
+                      onChangeText={ text => this.setState({email:text}) }
+                      value={this.state.email} />
+          <TextInput style={styles.bloque} 
+                      keyboardType='default'
+                      placeholder='Password'
+                      secureTextEntry={true} 
+                      onChangeText={ text => this.setState({password:text}) }
+                      value={this.state.password}/>  
+                  <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
+                        <Text style={styles.buttonText}> Registrate </Text> 
+                      </Pressable>
+                      {this.state.error ? (
+                            <Text style={styles.error}>{this.state.error}</Text>
+                          ) : null} 
+          <Pressable
+            style={styles.button2}
+            onPress={() => this.props.navigation.navigate('Register')}>
+            <Text style={styles.buttonText}>No tengo cuenta</Text>
+          </Pressable>
+        </View>
       </View>
     );
   }
@@ -67,60 +76,63 @@ login(email, pass){
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 300,
+    flex: 1,
+    backgroundColor: "#0A5AFF",
+    flexDirection: "row",
+    paddingHorizontal: 20,
   },
-  title: {
+    izq: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  bigLogo: {
+    width: "85%",
+    height: "55%",
+  },
+  der: {
+    flex: 1,
+    justifyContent: "center",
+    gap: 18,
+    paddingRight: 25
+  },
+  titulo: {
     fontSize: 26,
     fontWeight: "bold",
+    color: "white",
+    marginLeft: 110
   },
-  blueButton: {
-    backgroundColor: "#007BFF",
-    borderRadius: 10,
-    marginBottom: 15,
-    width: "50%",
-    height: 30,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  orangeButton: {
-    backgroundColor: "#FFA500",
-    borderRadius: 10,
-    width: "70%",
-    alignItems: "center",
-    width: "50%",
-    height: 30,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-    field: {
+  bloque: {
     height: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+    padding: 15,
     borderWidth: 1,
     borderColor: "#ccc",
-    borderStyle: "solid",
     borderRadius: 6,
-    marginVertical: 10,
-    width: "50%"
+    width: "50%",
+    color: "white"
   },
-  button: {
-    backgroundColor: "#28a745",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+  button1: {
+    backgroundColor: "rgba(122, 206, 245, 1)",
+    padding: 8,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 4,
+    borderRadius: 19,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#28a745",
-    marginBottom: 20,
+    borderColor: "rgba(93, 186, 233, 1)",
     width: "50%"
   },
   buttonText: {
     color: "#fff",
     textAlign: "center"
+  },
+  button2: {
+    backgroundColor: "#rgba(223, 183, 83, 1)",
+    borderRadius: 19,
+    width: "50%",
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center"
   },
   error: {
     color: "red",
