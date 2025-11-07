@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, FlatList, ActivityIndicator, Pressable , TextInput, Image} from "react-native";
-import { auth, db } from "../firebase/config"
+import { Text, View, StyleSheet, Pressable , TextInput, Image } from "react-native";
+import { auth, db } from "../firebase/config";
 
 class Register extends Component {
   constructor(props) {
@@ -8,73 +8,86 @@ class Register extends Component {
     this.state = {
       email: "",
       password: "",
-      userName: ""
+      userName: "",
+      error: ""
     };
   }
 
-  register(email, pass, userName){
+  register(email, pass, userName) {
     auth.createUserWithEmailAndPassword(email, pass)
-      .then((response) => {
-        return db.collection('users').add({
-          email: response.user.email,          
-          nombreUsuario: userName,            
-          createdAt: Date.now()                
+      .then(response => {
+        db.collection("users").add({
+          email: response.user.email,
+          nombreUsuario: userName,
+          createdAt: Date.now()
         });
-      })
-      .then(() => {
-        this.setState({ registered: true });
-        this.props.navigation.navigate('Login');
-      })
-      .catch((error) => {
-        this.setState({ error: 'Fallo en el registro.' });
-      });
 
+        this.props.navigation.navigate("Login");
+      })
+      .catch(() => {
+        this.setState({ error: "No se pudo registrar." });
+      });
+  }
+
+  onSubmit() {
+
+    if (this.state.email === "") {
+  this.setState({ error: "Falta completar campos obligatorios." });
+  return;
 }
 
- onSubmit(){
-    const { email, password, userName } = this.state;
+  if (this.state.password === "") {
+  this.setState({ error: "Falta completar campos obligatorios." });
+  return;
+}
 
-    if (!email.includes("@")) {
+  if (this.state.userName === "") {
+  this.setState({ error: "Falta completar campos obligatorios." });
+  return;
+}
+
+
+    if (!this.state.email.includes("@")) {
       this.setState({ error: "El email ingresado no es válido." });
       return;
     }
-    if (password.length < 6) {
-      this.setState({ error: "La password debe tener una longitud mínima de 6 caracteres." });
-      return;
-    }
-    if (userName.length < 3) {
-      this.setState({ error: "El nombre de usuario debe tener al menos 3 caracteres." });
+
+    if (this.state.password.length < 6) {
+      this.setState({
+        error: "La password debe tener una longitud mínima de 6 caracteres."
+      });
       return;
     }
 
-    this.register(email, password, userName);
+    this.register(email, password,userName);
   }
 
   render() {
     return (
       <View style={styles.container}>
-         <View style={styles.izq}>
-                          <Image
-                            source={require("../../assets/LogoAFA.png")}
-                            style={styles.bigLogo}
-                            resizeMode="contain"
-                          />
+        
+        <View style={styles.izq}>
+          <Image
+            source={require("../../assets/LogoAFA.png")}
+            style={styles.bigLogo}
+            resizeMode="contain"
+          />
         </View>
-        <View style= {styles.der}>
+
+        <View style={styles.der}>
           <Text style={styles.titulo}>Registro</Text>
 
           <TextInput
             style={styles.bloque}
-            keyboardType='email-address'
-            placeholder='Email'
+            placeholder="Email"
+            keyboardType="email-address"
             onChangeText={text => this.setState({ email: text })}
             value={this.state.email}
           />
 
           <TextInput
             style={styles.bloque}
-            keyboardType='default'
-            placeholder='Password'
+            placeholder="Password"
             secureTextEntry={true}
             onChangeText={text => this.setState({ password: text })}
             value={this.state.password}
@@ -82,42 +95,47 @@ class Register extends Component {
 
           <TextInput
             style={styles.bloque}
-            keyboardType='default'
-            placeholder='Usuario'
+            placeholder="Usuario"
             onChangeText={text => this.setState({ userName: text })}
             value={this.state.userName}
           />
 
+          {this.state.error ? (
+            <Text style={styles.error}>{this.state.error}</Text>
+          ) : null}
+
           <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
-            <Text style={styles.buttonText}> Registrate </Text>
+            <Text style={styles.buttonText}>Registrate</Text>
           </Pressable>
 
           <Pressable
             style={styles.button2}
-            onPress={() => this.props.navigation.navigate('Login')}>
-            <Text> Ya tengo cuenta </Text>
+            onPress={() => this.props.navigation.navigate("Login")}
+          >
+            <Text>Ya tengo cuenta</Text>
           </Pressable>
+
         </View>
-    </View>
+      </View>
     );
   }
-} 
+}
 
 const styles = StyleSheet.create({
-   container: {
+  container: {
     flex: 1,
     backgroundColor: "#0A5AFF",
     flexDirection: "row",
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
-    izq: {
+  izq: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   },
   bigLogo: {
     width: "85%",
-    height: "55%",
+    height: "55%"
   },
   der: {
     flex: 1,
@@ -140,14 +158,13 @@ const styles = StyleSheet.create({
     width: "50%",
     color: "white"
   },
-   button1: {
+  button1: {
     backgroundColor: "rgba(122, 206, 245, 1)",
     padding: 8,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 19,
     borderWidth: 1,
-    borderStyle: "solid",
     borderColor: "rgba(93, 186, 233, 1)",
     width: "50%"
   },
@@ -163,9 +180,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  buttonText: {
-    color: "Black",
-    textAlign: "center"
+  error: {
+    color: "red",
+    marginBottom: 10
   }
 });
 
