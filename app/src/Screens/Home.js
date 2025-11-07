@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
-import DynamicForms from "../components/DynamicForms";
+import { Text, View, StyleSheet, FlatList, ActivityIndicator, Image } from "react-native";
 import { db } from "../firebase/config";
 import Post from "../components/Post";
 
@@ -40,7 +39,7 @@ class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <DynamicForms/>
+        <Image source={require("../../assets/LogoAFA.png")} style={styles.logo} />
         <Text style={styles.title}>Posts</Text>
       <FlatList
           data={this.state.posts}
@@ -58,15 +57,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#0A5AFF",
+    alignItems: "center",
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
     marginVertical: 10,
-    color: "#333",
+    color: "#FFFFFF",
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    marginTop: 20,
+    marginBottom: 10,
+    resizeMode: "contain",
   },
 });
+
 
 export default Home;

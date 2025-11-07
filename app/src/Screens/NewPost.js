@@ -12,7 +12,6 @@ class NewPost extends Component {
 
   onSubmit() {
     this.setState({ loading: true });
-
     db.collection("posts")
       .add({
         owner: auth.currentUser.email,
