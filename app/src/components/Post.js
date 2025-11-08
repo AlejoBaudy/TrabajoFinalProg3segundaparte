@@ -47,10 +47,13 @@ render() {
           </Text>
         </Pressable>
         <Pressable style={styles.boton} onPress={() =>
-            this.props.navigation.navigate("Comentarios", {
-              info: this.props.post.data,
-              id: this.props.post.id,
-            })
+            {
+              if (this.props.cancelarComentario) { return; } 
+              this.props.navigation.navigate("Comentarios", {
+                info: this.props.post.data,
+                id: this.props.post.id,
+              });
+            } 
           }
         >
           <Text style={styles.texto}>
