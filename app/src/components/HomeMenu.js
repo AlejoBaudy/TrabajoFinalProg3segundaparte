@@ -20,17 +20,17 @@ class HomeMenu extends Component {
             )
           }}
         />
-          <Tab.Screen name="Newpost" component={NewPost} options={{ 
+          <Tab.Screen name="Post" component={NewPost} options={{ 
             headerShown: false,
             tabBarIcon: () => (
-              <AntDesign name="Posteos" size={24} color="black" />
+              <AntDesign name="twitter" size={24} color="black" />
             )
           }}
         />  
         <Tab.Screen name="Home" component={HomeStackScreen} options={{
             headerShown: false,
             tabBarIcon: () => (
-              <AntDesign name="arrowright" size={24} color="black" />
+              <AntDesign name="home" size={24} color="black" />
             )
           }}
         />

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Pressable, TextInput } from "react-native";
+import { Text, View, StyleSheet, Pressable, TextInput, Image } from "react-native";
 import { db, auth } from "../firebase/config"; 
+
 class NewPost extends Component {
   constructor(props) {
     super(props);
@@ -18,34 +19,36 @@ class NewPost extends Component {
         description: this.state.description,
         createdAt: Date.now(),
         likes: [],
-        Comentarios: []
+        Comentarios: [],
       })
       .then(() => {
-        this.setState({
-          description: "",
-          loading: false,
-        });
+        this.setState({ description: "", loading: false });
       })
       .catch(() => {
-        this.setState({
-          error: "No se pudo guardar el post.",
-          loading: false,
-        });
+        this.setState({ error: "No se pudo guardar el post.", loading: false });
       });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.titulo}>Nuevo post</Text>
+        <Image
+          source={require("../../assets/LogoAFA.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.titulo}>Comenta ahora</Text>
+
         <TextInput
           style={styles.field}
           placeholder="Escribí tu mensaje..."
+          placeholderTextColor="#ccc"
           value={this.state.description}
           onChangeText={(text) => this.setState({ description: text })}
         />
-        <Pressable onPress={() => this.onSubmit()}>
-          <Text style={styles.buttonText}>
+
+        <Pressable style={styles.boton} onPress={() => this.onSubmit()}>
+          <Text style={styles.botonTexto}>
             {this.state.loading ? "Publicando..." : "Publicar"}
           </Text>
         </Pressable>
@@ -54,37 +57,48 @@ class NewPost extends Component {
   }
 }
 
+const BLUE = "#0A5AFF";
+const WHITE = "#FFFFFF";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: BLUE,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 60,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
   },
   titulo: {
-    fontSize: 22,
+    color: WHITE,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 12,
-    textAlign: "center",
+    marginBottom: 20,
   },
   field: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 6,
-    padding: 10,
+    width: "85%",
     height: 60,
-    width: 280,
-    marginBottom: 10,
+    backgroundColor: WHITE,
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    marginBottom: 20,
   },
-  buttonText: {
-    backgroundColor: "#28a745",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+  boton: {
+    backgroundColor: WHITE,
+    borderRadius: 30,
+    paddingVertical: 14,
+    paddingHorizontal: 40,
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 4,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#28a745",
-    width: "6%",
+  },
+  botonTexto: {
+    color: BLUE,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

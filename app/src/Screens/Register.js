@@ -59,7 +59,7 @@ class Register extends Component {
       return;
     }
 
-    this.register(email, password,userName);
+    this.register(this.state.email, this.state.password, this.state.userName);
   }
 
   render() {
