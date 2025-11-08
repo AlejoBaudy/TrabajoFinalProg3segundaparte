@@ -31,6 +31,23 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderColor: "rgba(255,255,255,0.3)",
   },
+  leftCol: {
+    width: "25%",
+    paddingRight: 10,
+    borderRightWidth: 1,
+    borderColor: "rgba(255,255,255,0.3)",
+    height: "100%",         
+    justifyContent: "flex-start",
+    gap: 4,
+  },
+
+  clubesWrap: {
+    flexDirection: "column",
+    flexWrap: "nowrap",
+    marginTop: 6,
+    flex: 1,              
+    justifyContent: "space-between", 
+  },
 
   leftTit: {
     color: "#FFFFFF",
@@ -39,21 +56,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  clubesWrap: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
-    marginTop: 6,
-  },
 
   club: {
     backgroundColor: "#FFFFFF",
     borderRadius: 12,
     paddingVertical: 6,
     paddingHorizontal: 10,
-    marginBottom: 6,
+    marginBottom: 8,        
   },
-
   clubText: {
     color: "#0A3D91",
     fontSize: 14,

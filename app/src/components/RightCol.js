@@ -7,35 +7,53 @@ const RightCol = () => {
       <Text style={styles.rightTit}>What’s happening</Text>
 
       <View style={styles.card}>
-        <Text style={styles.topic}>LPF · River Plate</Text>
-        <Text style={styles.cardTit}>Renovación de Gallardo cada vez más cerca</Text>
-        <Text style={styles.topic}>12.7K posts</Text>
-      </View>
-
-      <View style={styles.card}>
         <Text style={styles.topic}>LPF · Boca Juniors</Text>
-        <Text style={styles.cardTit}>Riquelme confirmó refuerzos para el 2025</Text>
+        <Text style={styles.cardTit}>Dybala</Text>
         <Text style={styles.topic}>9.3K posts</Text>
       </View>
 
       <View style={styles.card}>
         <Text style={styles.topic}>LPF · Racing Club</Text>
-        <Text style={styles.cardTit}>Gago analiza variantes para el clásico</Text>
+        <Text style={styles.cardTit}>Costas analiza variantes para el sabado</Text>
         <Text style={styles.topic}>5.8K posts</Text>
       </View>
 
       <View style={styles.card}>
         <Text style={styles.topic}>LPF · San Lorenzo</Text>
-        <Text style={styles.cardTit}>Insúa busca reforzar el mediocampo</Text>
+        <Text style={styles.cardTit}>Moretti escandalo mediatico</Text>
         <Text style={styles.topic}>7.4K posts</Text>
       </View>
 
       <View style={styles.card}>
         <Text style={styles.topic}>LPF · Independiente</Text>
-        <Text style={styles.cardTit}>El Rojo apunta a una nueva comisión técnica</Text>
+        <Text style={styles.cardTit}>Guillermo asumió como entrenador hasta 2026</Text>
         <Text style={styles.topic}>10.1K posts</Text>
       </View>
+
+      <View style={styles.card}>
+        <Text style={styles.topic}>LPF · River Plate</Text>
+        <Text style={styles.cardTit}>Marcelo Gallardo y Stefano Di Carlo</Text>
+        <Text style={styles.topic}>12.7K posts</Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.topic}>LPF · Estudiantes</Text>
+        <Text style={styles.cardTit}>Eduardo Domínguez no renueva</Text>
+        <Text style={styles.topic}>6.5K posts</Text>
+      </View>
+            <View style={styles.card}>
+        <Text style={styles.topic}>LPF · Rosario Central</Text>
+        <Text style={styles.cardTit}>Holan apuesta por los juveniles para la nueva temporada</Text>
+        <Text style={styles.topic}>8.1K posts</Text>
+      </View>
+            <View style={styles.card}>
+        <Text style={styles.topic}>LPF · Huracán</Text>
+        <Text style={styles.cardTit}>Frank Kudelka prepara cambios tácticos de cara al torneo</Text>
+        <Text style={styles.topic}>4.7K posts</Text>
+      </View>
     </View>
+
+    
   );
 };
 
