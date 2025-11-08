@@ -8,41 +8,57 @@ import RightCol from "../components/RightCol";
 
 class Comentarios extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    loading: false,
-    info: this.props.route.params.info,
-    id: this.props.route.params.id,
-    nuevoComentario: "",             
-  };
-}
+    super(props);
+    this.state = {
+      loading: false,
+      info: this.props.route.params.info,
+      id: this.props.route.params.id,
+      nuevoComentario: "",
+      liked: false 
+    };
+  }
 
+  componentDidMount() { 
+    let me = auth.currentUser ? auth.currentUser.email : ""; 
+    let arr = this.state.info && this.state.info.likes ? this.state.info.likes : []; 
+    let yaLike = false; 
+    for (let i = 0; i < arr.length; i++) { 
+      if (arr[i] === me) { yaLike = true; } 
+    }
+    this.setState({ liked: yaLike });
+  } 
 
+  onSubmit() {
+    this.setState({ loading: true });
 
- onSubmit() {
-  this.setState({ loading: true });
+    let nuevo = { 
+      id: Date.now().toString(), 
+      owner: auth.currentUser.email, 
+      comentario: this.state.nuevoComentario, 
+      createdAt: Date.now() 
+    }; 
 
-  console.log("ID del post:", this.state.id);
-  console.log("Nuevo comentario:", this.state.nuevoComentario);
+    db.collection("posts")
+      .doc(this.state.id)
+      .update({
+        Comentarios: firebase.firestore.FieldValue.arrayUnion(
+          nuevo 
+        ),
+      })
+      .then(() => {
+        let infoActual = this.state.info; 
+        let lista = infoActual.Comentarios ? infoActual.Comentarios.slice() : []; 
+        lista.push(nuevo); 
+        infoActual.Comentarios = lista; 
 
-  db.collection("posts")
-    .doc(this.state.id)
-    .update({
-      Comentarios: firebase.firestore.FieldValue.arrayUnion({
-        id: Date.now().toString(),
-        owner: auth.currentUser.email,
-        comentario: this.state.nuevoComentario,
-        createdAt: Date.now(),
-      }),
-    })
-    .then(() => {
-      this.setState({ nuevoComentario: "", loading: false });
-    })
-    .catch((error) => {
-      console.log("Error al actualizar Firestore:", error);
-      this.setState({ loading: false });
-    });
-}
+        this.setState({ nuevoComentario: "", loading: false, info: infoActual });
+      })
+      .catch((error) => {
+        console.log("Error al actualizar Firestore:", error);
+        this.setState({ loading: false });
+      });
+  }
+
   likear() {
     db.collection("posts")
       .doc(this.props.post.id)
@@ -55,35 +71,90 @@ class Comentarios extends Component {
       .catch((error) => console.log(error));
   }
 
+  likearLocal() { 
+    let me = auth.currentUser ? auth.currentUser.email : ""; 
+    let infoActual = this.state.info; 
+    let arr = infoActual.likes ? infoActual.likes.slice() : []; 
+
+    if (this.state.liked) {
+      let nuevoArr = []; 
+      for (let i = 0; i < arr.length; i++) { 
+        if (arr[i] !== me) { nuevoArr.push(arr[i]); } 
+      } 
+      db.collection("posts") 
+        .doc(this.state.id) 
+        .update({ 
+          likes: firebase.firestore.FieldValue.arrayRemove(me) 
+        }) 
+        .then(() => { 
+          infoActual.likes = nuevoArr; 
+          this.setState({ liked: false, info: infoActual }); 
+        }) 
+        .catch(function (e) { console.log(e); });
+    } else { 
+      db.collection("posts") 
+        .doc(this.state.id) 
+        .update({ 
+          likes: firebase.firestore.FieldValue.arrayUnion(me) 
+        }) 
+        .then(() => { 
+          arr.push(me); 
+          infoActual.likes = arr; 
+          this.setState({ liked: true, info: infoActual }); 
+        }) 
+        .catch(function (e) { console.log(e); }); 
+    } 
+  } 
+
   render() {
-   
-  return (
-  <View style={styles.container}>
-      <LeftCol/>
-    <View style={styles.centerCol}>
-      <View style={styles.postCard}>
-        <Text style={styles.postAuthor}>{this.state.info.owner}</Text>
-        <Text style={styles.postDescription}>{this.state.info.description}</Text>
-      </View>
-      <View style={styles.card}>
-        {this.state.info.Comentarios && this.state.info.Comentarios.length > 0 ? (
-            <FlatList
-              data={this.state.info.Comentarios}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View style={styles.commentCard}>
-                  <Text style={styles.commentAuthor}>{item.owner}</Text>
-                  <Text style={styles.commentText}>{item.comentario}</Text>
-                </View>
-              )}
-            />
-          ) : (
-            <Text style={styles.empty}>Aún no hay comentarios.</Text>
-          )}
-      </View>
+    return (
+      <View style={styles.container}>
+        <LeftCol />
+        <View style={styles.centerCol}>
+          <View style={styles.postCard}>
+            <Text style={styles.postAuthor}>{this.state.info.owner}</Text>
+            <Text style={styles.postDescription}>{this.state.info.description}</Text>
 
+            <View style={styles.acciones}> 
+              <Pressable
+                style={styles.boton}
+                onPress={() => this.likearLocal()} 
+              >
+                <Text style={styles.texto}>
+                  {this.state.liked ? "❤️" : "🤍"}{" "}
+                  {this.state.info && this.state.info.likes ? this.state.info.likes.length : 0}
+                </Text>
+              </Pressable>
 
-        <View style={styles.commentBox}>
+              <Pressable
+                style={styles.boton}
+                onPress={() => {}} 
+              >
+                <Text style={styles.texto}>
+                  💬 {this.state.info && this.state.info.Comentarios ? this.state.info.Comentarios.length : 0}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+
+          <View style={styles.card}>
+            {this.state.info.Comentarios && this.state.info.Comentarios.length > 0 ? (
+              <FlatList
+                data={this.state.info.Comentarios}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <View style={styles.commentCard}>
+                    <Text style={styles.commentAuthor}>{item.owner}</Text>
+                    <Text style={styles.commentText}>{item.comentario}</Text>
+                  </View>
+                )}
+              />
+            ) : (
+              <Text style={styles.empty}>Aún no hay comentarios.</Text>
+            )}
+          </View>
+
+          <View style={styles.commentBox}>
             <TextInput
               style={styles.commentInput}
               placeholder="Escribí tu comentario..."
@@ -96,14 +167,13 @@ class Comentarios extends Component {
                 {this.state.loading ? "Publicando..." : "Publicar"}
               </Text>
             </Pressable>
+          </View>
         </View>
-
-
-    </View>
-    <RightCol/>
-  </View>
-);
-}}
+        <RightCol />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -279,7 +349,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,0.8)",
     fontSize: 12,
   },
-    acciones: {
+  acciones: {
     flexDirection: "row",
     gap: 110,
     paddingTop: 6,
