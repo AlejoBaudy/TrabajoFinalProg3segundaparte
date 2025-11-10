@@ -13,6 +13,13 @@ class HomeMenu extends Component {
   render() { 
     return (
       <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeStackScreen} options={{
+            headerShown: false,
+            tabBarIcon: () => (
+              <AntDesign name="home" size={24} color="black" />
+            )
+          }}
+        />
         <Tab.Screen name="Profile" component={Profile} options={{ 
             headerShown: false,
             tabBarIcon: () => (
@@ -27,13 +34,6 @@ class HomeMenu extends Component {
             )
           }}
         />  
-        <Tab.Screen name="Home" component={HomeStackScreen} options={{
-            headerShown: false,
-            tabBarIcon: () => (
-              <AntDesign name="home" size={24} color="black" />
-            )
-          }}
-        />
       </Tab.Navigator>
     );
   }

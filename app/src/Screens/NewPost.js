@@ -8,11 +8,18 @@ class NewPost extends Component {
     this.state = {
       description: "",
       loading: false,
+      error: ""
     };
   }
 
   onSubmit() {
-    this.setState({ loading: true });
+    if (this.state.description === "") {
+      this.setState({ error: "No podés publicar un comentario vacío." });
+      return;
+    }
+
+    this.setState({ loading: true, error: "" });
+
     db.collection("posts")
       .add({
         owner: auth.currentUser.email,
@@ -37,6 +44,7 @@ class NewPost extends Component {
           style={styles.logo}
           resizeMode="contain"
         />
+
         <Text style={styles.titulo}>Comenta ahora</Text>
 
         <TextInput
@@ -47,7 +55,15 @@ class NewPost extends Component {
           onChangeText={(text) => this.setState({ description: text })}
         />
 
-        <Pressable style={styles.boton} onPress={() => this.onSubmit()}>
+        {this.state.error ? (
+          <Text style={styles.error}>{this.state.error}</Text>
+        ) : null}
+
+        <Pressable
+          style={styles.boton}
+          onPress={() => this.onSubmit()}
+          disabled={this.state.loading}
+        >
           <Text style={styles.botonTexto}>
             {this.state.loading ? "Publicando..." : "Publicar"}
           </Text>
@@ -86,7 +102,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 15,
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: 10,
+  },
+  error: {
+    color: "#ffdddd",
+    backgroundColor: "#7a0000",
+    borderRadius: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    marginBottom: 12,
   },
   boton: {
     backgroundColor: WHITE,

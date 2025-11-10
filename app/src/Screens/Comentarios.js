@@ -14,7 +14,8 @@ class Comentarios extends Component {
       info: this.props.route.params.info,
       id: this.props.route.params.id,
       nuevoComentario: "",
-      liked: false 
+      liked: false,
+      error: ""
     };
   }
 
@@ -29,33 +30,39 @@ class Comentarios extends Component {
   } 
 
   onSubmit() {
-    this.setState({ loading: true });
+    if (this.state.nuevoComentario === "") {
+      this.setState({ error: "No podés publicar un comentario vacío." }); 
+      return; 
+    }
 
-    let nuevo = { 
-      id: Date.now().toString(), 
-      owner: auth.currentUser.email, 
-      comentario: this.state.nuevoComentario, 
-      createdAt: Date.now() 
-    }; 
+    this.setState({ loading: true, error: "" });
+
+    let nuevo = {
+      id: Date.now().toString(),
+      owner: auth.currentUser.email,
+      comentario: this.state.nuevoComentario,
+      createdAt: Date.now()
+    };
 
     db.collection("posts")
       .doc(this.state.id)
       .update({
-        Comentarios: firebase.firestore.FieldValue.arrayUnion(
-          nuevo 
-        ),
+        Comentarios: firebase.firestore.FieldValue.arrayUnion(nuevo)
       })
       .then(() => {
-        let infoActual = this.state.info; 
-        let lista = infoActual.Comentarios ? infoActual.Comentarios.slice() : []; 
-        lista.push(nuevo); 
-        infoActual.Comentarios = lista; 
+        let infoActual = this.state.info;
+        let lista = infoActual.Comentarios ? infoActual.Comentarios.slice() : [];
+        lista.push(nuevo);
+        infoActual.Comentarios = lista;
 
-        this.setState({ nuevoComentario: "", loading: false, info: infoActual });
+        this.setState({
+          nuevoComentario: "",
+          loading: false,
+          info: infoActual
+        });
       })
-      .catch((error) => {
-        console.log("Error al actualizar Firestore:", error);
-        this.setState({ loading: false });
+      .catch(() => {
+        this.setState({ loading: false, error: "No se pudo publicar el comentario." }); 
       });
   }
 
@@ -162,6 +169,11 @@ class Comentarios extends Component {
               value={this.state.nuevoComentario}
               onChangeText={(text) => this.setState({ nuevoComentario: text })}
             />
+
+            {this.state.error ? (
+              <Text style={styles.error}>{this.state.error}</Text>
+            ) : null}
+
             <Pressable style={styles.commentButton} onPress={() => this.onSubmit()}>
               <Text style={styles.commentButtonText}>
                 {this.state.loading ? "Publicando..." : "Publicar"}
