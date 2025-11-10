@@ -30,12 +30,6 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     borderRightWidth: 1,
     borderColor: "rgba(255,255,255,0.3)",
-  },
-  leftCol: {
-    width: "25%",
-    paddingRight: 10,
-    borderRightWidth: 1,
-    borderColor: "rgba(255,255,255,0.3)",
     height: "100%",         
     justifyContent: "flex-start",
     gap: 4,
@@ -50,7 +44,7 @@ const styles = StyleSheet.create({
   },
 
   leftTit: {
-    color: "#FFFFFF",
+    color: "white",
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
@@ -58,14 +52,15 @@ const styles = StyleSheet.create({
 
 
   club: {
-    backgroundColor: "#FFFFFF",
+      backgroundColor: "rgba(255,255,255,0.1)",
+    borderColor: "rgba(255,255,255,0.3)",
     borderRadius: 12,
     paddingVertical: 6,
     paddingHorizontal: 10,
     marginBottom: 8,        
   },
   clubText: {
-    color: "#0A3D91",
+    color: "white",
     fontSize: 14,
     fontWeight: "bold",
   },

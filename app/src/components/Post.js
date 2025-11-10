@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     width: 250,
     alignSelf: "center",
-    backgroundColor: "black",
+    backgroundColor: "rgba(255,255,255,0.1)",
+    borderColor: "rgba(255,255,255,0.3)",
   },
   nombre: {
     fontSize: 17,
