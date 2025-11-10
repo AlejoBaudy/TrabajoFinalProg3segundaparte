@@ -25,8 +25,8 @@ class App extends Component {
               }}
             >
               <Stack.Screen name="StackHome" component={StackPresent} />
-              <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
+              <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="HomeMenu" component={HomeMenu} />
               <Stack.Screen name="NewPost" component={NewPost} />
               <Stack.Screen name="Comentarios" component={Comentarios} />

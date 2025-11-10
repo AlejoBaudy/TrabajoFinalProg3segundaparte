@@ -84,70 +84,87 @@ login(email, pass){
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A5AFF",
-    flexDirection: "row",
-    paddingHorizontal: 20,
-  },
-    izq: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  bigLogo: {
-    width: "85%",
-    height: "55%",
-  },
-  der: {
-    flex: 1,
-    justifyContent: "center",
-    gap: 18,
-    paddingRight: 25
-  },
-  titulo: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "white",
-    marginLeft: 110
-  },
-  bloque: {
-    height: 20,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 6,
-    width: "50%",
-    color: "white"
-  },
-  button1: {
-    backgroundColor: "rgba(122, 206, 245, 1)",
-    padding: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 19,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "rgba(93, 186, 233, 1)",
-    width: "50%"
-  },
-  buttonText: {
-    color: "#fff",
-    textAlign: "center"
-  },
-  button2: {
-    backgroundColor: "#rgba(223, 183, 83, 1)",
-    borderRadius: 19,
-    width: "50%",
-    height: 30,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  error: {
-    color: "red",
-    marginBottom: 10
-  }
-  
+container: {
+  flex: 1,
+  backgroundColor: "#0A5AFF",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingHorizontal: 20,
+},
+
+izq: {
+  alignItems: "center",
+  justifyContent: "center",
+  marginBottom: 20,
+},
+
+bigLogo: {
+  width: 140,
+  height: 140,
+},
+
+der: {
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 18,
+  paddingHorizontal: 24,
+},
+
+titulo: {
+  fontSize: 28,
+  fontWeight: "bold",
+  color: "white",
+  textAlign: "center",
+  marginBottom: 10,
+},
+
+bloque: {
+  width: "90%",
+  backgroundColor: "white",
+  borderRadius: 12,
+  paddingHorizontal: 15,
+  paddingVertical: 12,
+  fontSize: 16,
+  marginVertical: 6,
+  color: "black",
+},
+
+button1: {
+  width: "90%",
+  backgroundColor: "rgba(122, 206, 245, 1)",
+  paddingVertical: 14,
+  borderRadius: 25,
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
+},
+
+buttonText: {
+  color: "#fff",
+  fontSize: 16,
+  fontWeight: "bold",
+},
+
+button2: {
+  width: "90%",
+  backgroundColor: "rgba(223, 183, 83, 1)",
+  borderRadius: 25,
+  paddingVertical: 14,
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 8,
+},
+
+error: {
+  color: "#FFD700",
+  marginTop: 8,
+  fontSize: 14,
+  textAlign: "center",
+  fontWeight: "600",
+},
+
 });
 
 export default Login;

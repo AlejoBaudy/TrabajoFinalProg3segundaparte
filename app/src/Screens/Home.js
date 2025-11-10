@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { db } from "../firebase/config";
 import Post from "../components/Post";
-import LeftCol from "../components/LeftCol";
-import RightCol from "../components/RightCol";
+
 
 class Home extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <LeftCol />
+  
 
         <View style={styles.centerCol}>
           <Text style={styles.title}>Posts</Text>
@@ -45,7 +44,7 @@ class Home extends Component {
           />
         </View>
 
-        <RightCol />
+   
       </View>
     );
   }
@@ -64,9 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: "rgba(255,255,255,0.25)",
   },
   title: {
     fontSize: 22,

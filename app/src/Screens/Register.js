@@ -27,21 +27,13 @@ register(email, pass, userName) {
     })
     .catch(error => {
       console.log(error.message)
-      if(error.message == "The email address is already in use by another account"){
+      if(error.message.includes("The email address is already in use by another account")){
         this.setState({
           error: "Este mail ya esta registrado"
         })
       }
-      if(error.message == "createUserWithEmailAndPassword failed: First argument \"email\" must be a valid string."){
-        this.setState({
-          error: "Campo/s vacios"
-        })
-      }
-      
     });
 }
-
-
   onSubmit() {
     if (this.state.email === "") {
   this.setState({ error: "Falta completar campos obligatorios." });
@@ -57,14 +49,12 @@ register(email, pass, userName) {
   this.setState({ error: "Falta completar campos obligatorios." });
   return;
 }
-
-
-    if (!this.state.email.includes("@")) {
+if (!this.state.email.includes("@")) {
       this.setState({ error: "El email ingresado no es válido." });
       return;
     }
 
-    if (this.state.password.length < 6) {
+if (this.state.password.length < 6) {
       this.setState({
         error: "La password debe tener una longitud mínima de 6 caracteres."
       });
@@ -77,7 +67,6 @@ register(email, pass, userName) {
   render() {
     return (
       <View style={styles.container}>
-        
         <View style={styles.izq}>
           <Image
             source={require("../../assets/LogoAFA.png")}
@@ -116,7 +105,7 @@ register(email, pass, userName) {
             <Text style={styles.error}>{this.state.error}</Text>
           ) : null}
 
-          <Pressable style={styles.button1} onPress={() => this.register()}>
+          <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
             <Text style={styles.buttonText}>Registrate</Text>
           </Pressable>
 
@@ -134,68 +123,89 @@ register(email, pass, userName) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A5AFF",
-    flexDirection: "row",
-    paddingHorizontal: 20
-  },
-  izq: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-start"
-  },
-  bigLogo: {
-    width: "85%",
-    height: "55%"
-  },
-  der: {
-    flex: 1,
-    justifyContent: "center",
-    gap: 18,
-    paddingRight: 25
-  },
-  titulo: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "white",
-    marginLeft: 120
-  },
-  bloque: {
-    height: 20,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 6,
-    width: "50%",
-    color: "white"
-  },
-  button1: {
-    backgroundColor: "rgba(122, 206, 245, 1)",
-    padding: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 19,
-    borderWidth: 1,
-    borderColor: "rgba(93, 186, 233, 1)",
-    width: "50%"
-  },
-  buttonText: {
-    color: "#fff",
-    textAlign: "center"
-  },
-  button2: {
-    backgroundColor: "#rgba(223, 183, 83, 1)",
-    borderRadius: 19,
-    width: "50%",
-    height: 30,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  error: {
-    color: "red",
-    marginBottom: 10
-  }
+container: {
+  flex: 1,
+  backgroundColor: "#0A5AFF",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingHorizontal: 20,
+},
+
+izq: {
+  alignItems: "center",
+  justifyContent: "center",
+  marginBottom: 20,
+},
+
+bigLogo: {
+  width: 140,
+  height: 140,
+},
+
+der: {
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 18,
+  paddingHorizontal: 24,
+},
+
+titulo: {
+  fontSize: 28,
+  fontWeight: "bold",
+  color: "white",
+  textAlign: "center",
+  marginBottom: 10,
+},
+
+bloque: {
+  width: "90%",
+  backgroundColor: "white",
+  borderRadius: 12,
+  paddingHorizontal: 15,
+  paddingVertical: 12,
+  fontSize: 16,
+  marginVertical: 6,
+  color: "black",
+  borderWidth: 0,
+},
+
+button1: {
+  width: "90%",
+  backgroundColor: "rgba(122, 206, 245, 1)",
+  paddingVertical: 14,
+  borderRadius: 25,
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
+  borderWidth: 0,
+},
+
+buttonText: {
+  color: "#fff",
+  fontSize: 16,
+  fontWeight: "bold",
+},
+
+button2: {
+  width: "90%",
+  backgroundColor: "rgba(223, 183, 83, 1)",
+  borderRadius: 25,
+  paddingVertical: 14,
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 8,
+},
+
+error: {
+  color: "red",
+  marginTop: 8,
+  fontSize: 14,
+  textAlign: "center",
+  fontWeight: "600",
+},
+
 });
 
 export default Register;

@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList, TextInput, Pressable } from "react-native";
 import { db, auth } from "../firebase/config";
 import firebase from "firebase";
-import Comentario from "../components/Comentario";
-import LeftCol from "../components/LeftCol";
-import RightCol from "../components/RightCol";
+
+
 
 class Comentarios extends Component {
   constructor(props) {
@@ -52,6 +51,7 @@ class Comentarios extends Component {
       .then(() => {
         let infoActual = this.state.info;
         let lista = infoActual.Comentarios ? infoActual.Comentarios.slice() : [];
+        //cambiar
         lista.push(nuevo);
         infoActual.Comentarios = lista;
 
@@ -116,7 +116,6 @@ class Comentarios extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <LeftCol />
         <View style={styles.centerCol}>
           <View style={styles.postCard}>
             <Text style={styles.postAuthor}>{this.state.info.owner}</Text>
@@ -183,12 +182,11 @@ class Comentarios extends Component {
 
           <Pressable
             style={styles.volverBtn}
-            onPress={() => this.props.navigation.navigate("Comentarios")}
+            onPress={() => this.props.navigation.navigate("Home")}
           >
-            <Text style={styles.volverTxt}>Volver a Comentarios</Text>
+            <Text style={styles.volverTxt}>Home</Text>
           </Pressable>
         </View>
-        <RightCol />
       </View>
 
     );
@@ -254,9 +252,6 @@ volverTxt: {
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: "rgba(255,255,255,0.25)",
   },
   postCard: {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -266,7 +261,6 @@ volverTxt: {
     width: "90%",
     alignSelf: "center",
     marginVertical: 8,
-    borderWidth: 2,
     borderColor: "rgba(255, 255, 255, 0.1)",
 
   },
@@ -283,10 +277,10 @@ volverTxt: {
     marginBottom: 14,
   },
   card: {
-
     padding: 12,
     marginBottom: 10,
-
+    width: "100%",
+    flex: 1,
   },
   empty: {
     textAlign: "center",
@@ -302,12 +296,6 @@ volverTxt: {
     alignSelf: "center",
     marginVertical: 6,
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.1)",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 3,
   },
   commentAuthor: {
     color: "#fff",
@@ -324,7 +312,7 @@ volverTxt: {
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 14,
-    width: "37%",
+    width: "75%",
     alignSelf: "center",
     marginTop: 12,
     marginBottom: 20,
@@ -360,7 +348,6 @@ volverTxt: {
     width: "25%",
     paddingLeft: 10,
     borderLeftWidth: 1,
-    borderColor: "rgba(255,255,255,0.3)",
   },
   rightTit: {
     color: "#FFFFFF",
