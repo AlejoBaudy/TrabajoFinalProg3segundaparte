@@ -26,7 +26,18 @@ register(email, pass, userName) {
       });
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.message)
+      if(error.message == "The email address is already in use by another account"){
+        this.setState({
+          error: "Este mail ya esta registrado"
+        })
+      }
+      if(error.message == "createUserWithEmailAndPassword failed: First argument \"email\" must be a valid string."){
+        this.setState({
+          error: "Campo/s vacios"
+        })
+      }
+      
     });
 }
 
@@ -105,7 +116,7 @@ register(email, pass, userName) {
             <Text style={styles.error}>{this.state.error}</Text>
           ) : null}
 
-          <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
+          <Pressable style={styles.button1} onPress={() => this.register()}>
             <Text style={styles.buttonText}>Registrate</Text>
           </Pressable>
 
