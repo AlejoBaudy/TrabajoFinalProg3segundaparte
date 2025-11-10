@@ -235,20 +235,16 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.25)",
   },
   postCard: {
-    backgroundColor: "#000",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 18,
     paddingVertical: 18,
     paddingHorizontal: 14,
     width: "90%",
     alignSelf: "center",
     marginVertical: 8,
-    borderWidth: 1,
-    borderColor: "rgba(223,183,83,0.7)",
-    shadowColor: "#000",
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 6,
+    borderWidth: 2,
+    borderColor: "rgba(255, 255, 255, 0.1)",
+
   },
   postAuthor: {
     color: "#fff",
@@ -263,12 +259,10 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   card: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 12,
+
     padding: 12,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
+
   },
   empty: {
     textAlign: "center",
@@ -276,7 +270,7 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   commentCard: {
-    backgroundColor: "#000",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 14,
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -284,7 +278,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginVertical: 6,
     borderWidth: 1,
-    borderColor: "rgba(223,183,83,0.7)",
+    borderColor: "rgba(255,255,255,0.1)",
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 5,
@@ -363,6 +357,9 @@ const styles = StyleSheet.create({
   },
   acciones: {
     flexDirection: "row",
+    justifyContent:"space-between",
+    alignItems: "center",
+    width:"100%",
     gap: 110,
     paddingTop: 6,
   },
