@@ -35,18 +35,18 @@ class Profile extends Component {
       .onSnapshot((posts) => {
 
         let misPosts = [];
-          //foreach
-        for (let i = 0; i < posts.docs.length; i++) {
-          let doc = posts.docs[i];
-          misPosts.push({
-            id: doc.id,
-            data: doc.data()
-          });
-        }
 
-        this.setState({
-          myPosts: misPosts
-        });
+          posts.docs.forEach(function(doc) {
+            misPosts.push({
+              id: doc.id,
+              data: doc.data()
+          });
+});
+
+this.setState({
+  myPosts: misPosts
+});
+
       });
   }
 
