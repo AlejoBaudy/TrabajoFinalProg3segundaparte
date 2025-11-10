@@ -32,7 +32,6 @@ register(email, pass, userName) {
 
 
   onSubmit() {
-
     if (this.state.email === "") {
   this.setState({ error: "Falta completar campos obligatorios." });
   return;

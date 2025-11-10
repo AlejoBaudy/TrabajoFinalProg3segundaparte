@@ -10,15 +10,19 @@ class Login extends Component {
       password: "",
     }
   }
+componentDidMount(){
+  
+  auth.onAuthStateChanged(user => {
+          if(user){
+            this.props.navigation.navigate("HomeMenu")
+          }
+        })
+    return 
+ }
 login(email, pass){
    auth.signInWithEmailAndPassword(email, pass)
     .then((response) => {
         this.setState({loggedIn: true});
-        auth.onAuthStateChanged(user => {
-          if(user){
-            this.props.navigation.navigate('HomeMenu');
-          }
-        })
     })
      .catch( error => {
       this.setState({error: "credenciales invalidas"})

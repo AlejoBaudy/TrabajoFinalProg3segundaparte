@@ -1,8 +1,20 @@
 
 import React, { Component } from "react";
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import { auth } from "../firebase/config"
 
  class StackPresent extends Component {
+  constructor(props){
+    super(props)
+  }
+  componentDidMount(){
+  auth.onAuthStateChanged(user => {
+          if(user){
+            this.props.navigation.navigate("HomeMenu")
+          }
+        })
+     
+ }
   render() {
     return (
       <View style={styles.container}>
