@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, FlatList, TextInput, Pressable } from "react-na
 import { db, auth } from "../firebase/config";
 import firebase from "firebase";
 
-
-
 class Comentarios extends Component {
   constructor(props) {
     super(props);
@@ -21,17 +19,14 @@ class Comentarios extends Component {
   componentDidMount() { 
     let me = auth.currentUser ? auth.currentUser.email : ""; 
     let arr = this.state.info && this.state.info.likes ? this.state.info.likes : []; 
-    let yaLike = false; 
-    for (let i = 0; i < arr.length; i++) { 
-      if (arr[i] === me) { yaLike = true; } 
-    }
+    let yaLike = arr.includes(me);
     this.setState({ liked: yaLike });
   } 
 
   onSubmit() {
     if (this.state.nuevoComentario === "") {
-      this.setState({ error: "No podés publicar un comentario vacío." }); 
-      return; 
+      this.setState({ error: "No podés publicar un comentario vacío." });
+      return;
     }
 
     this.setState({ loading: true, error: "" });
@@ -51,7 +46,6 @@ class Comentarios extends Component {
       .then(() => {
         let infoActual = this.state.info;
         let lista = infoActual.Comentarios ? infoActual.Comentarios.slice() : [];
-        //cambiar
         lista.push(nuevo);
         infoActual.Comentarios = lista;
 
@@ -62,56 +56,51 @@ class Comentarios extends Component {
         });
       })
       .catch(() => {
-        this.setState({ loading: false, error: "No se pudo publicar el comentario." }); 
+        this.setState({ loading: false, error: "No se pudo publicar el comentario." });
       });
-  }
-
-  likear() {
-    db.collection("posts")
-      .doc(this.props.post.id)
-      .update({
-        likes: this.state.liked
-          ? firebase.firestore.FieldValue.arrayRemove(this.state.user.email)
-          : firebase.firestore.FieldValue.arrayUnion(this.state.user.email),
-      })
-      .then(() => this.setState({ liked: !this.state.liked }))
-      .catch((error) => console.log(error));
   }
 
   likearLocal() { 
     let me = auth.currentUser ? auth.currentUser.email : ""; 
     let infoActual = this.state.info; 
-    let arr = infoActual.likes ? infoActual.likes.slice() : []; 
+    let arr = infoActual.likes ? infoActual.likes : []; 
 
     if (this.state.liked) {
-      let nuevoArr = []; 
-      for (let i = 0; i < arr.length; i++) { 
-        if (arr[i] !== me) { nuevoArr.push(arr[i]); } 
-      } 
-      db.collection("posts") 
-        .doc(this.state.id) 
-        .update({ 
-          likes: firebase.firestore.FieldValue.arrayRemove(me) 
-        }) 
-        .then(() => { 
-          infoActual.likes = nuevoArr; 
-          this.setState({ liked: false, info: infoActual }); 
-        }) 
-        .catch(function (e) { console.log(e); });
+      let nuevoArr = [];
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] !== me) {
+          nuevoArr.push(arr[i]);
+        }
+      }
+
+      db.collection("posts")
+        .doc(this.state.id)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayRemove(me)
+        })
+        .then(() => {
+          infoActual.likes = nuevoArr;
+          this.setState({ liked: false, info: infoActual });
+        });
     } else { 
-      db.collection("posts") 
-        .doc(this.state.id) 
-        .update({ 
-          likes: firebase.firestore.FieldValue.arrayUnion(me) 
-        }) 
-        .then(() => { 
-          arr.push(me); 
-          infoActual.likes = arr; 
-          this.setState({ liked: true, info: infoActual }); 
-        }) 
-        .catch(function (e) { console.log(e); }); 
-    } 
-  } 
+      if (!arr.includes(me)) {
+        db.collection("posts")
+          .doc(this.state.id)
+          .update({
+            likes: firebase.firestore.FieldValue.arrayUnion(me)
+          })
+          .then(() => {
+            let nuevoArr = [];
+            for (let i = 0; i < arr.length; i++) {
+              nuevoArr.push(arr[i]);
+            }
+            nuevoArr.push(me);
+            infoActual.likes = nuevoArr;
+            this.setState({ liked: true, info: infoActual });
+          });
+      }
+    }
+  }
 
   render() {
     return (
@@ -124,7 +113,7 @@ class Comentarios extends Component {
             <View style={styles.acciones}> 
               <Pressable
                 style={styles.boton}
-                onPress={() => this.likearLocal()} 
+                onPress={() => this.likearLocal()}
               >
                 <Text style={styles.texto}>
                   {this.state.liked ? "❤️" : "🤍"}{" "}
@@ -134,7 +123,7 @@ class Comentarios extends Component {
 
               <Pressable
                 style={styles.boton}
-                onPress={() => {}} 
+                onPress={() => {}}
               >
                 <Text style={styles.texto}>
                   💬 {this.state.info && this.state.info.Comentarios ? this.state.info.Comentarios.length : 0}
@@ -160,7 +149,7 @@ class Comentarios extends Component {
             )}
           </View>
 
-         <View style={styles.commentBox}>
+          <View style={styles.commentBox}>
             <TextInput
               style={styles.commentInput}
               placeholder="Escribí tu comentario..."
@@ -188,7 +177,6 @@ class Comentarios extends Component {
           </Pressable>
         </View>
       </View>
-
     );
   }
 }
@@ -200,58 +188,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A5AFF",
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 20,
+    paddingTop: 20
   },
   volverBtn: {
-  backgroundColor: "red",
-  paddingVertical: 12,
-  paddingHorizontal: 20,
-  borderRadius: 20,
-  alignItems: "center",
-  alignSelf: "center",
-  marginBottom: 30,
-  marginTop: 10,
-},
-volverTxt: {
-  color: "#fff",
-  fontWeight: "bold",
-  fontSize: 16,
-},
-
-  leftCol: {
-    width: "25%",
-    paddingRight: 10,
-    borderRightWidth: 1,
-    borderColor: "rgba(255,255,255,0.3)",
+    backgroundColor: "red",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    alignItems: "center",
+    alignSelf: "center",
+    marginBottom: 30,
+    marginTop: 10
   },
-  leftTit: {
-    color: "#FFFFFF",
-    fontSize: 16,
+  volverTxt: {
+    color: "#fff",
     fontWeight: "bold",
-    marginBottom: 10,
-  },
-  clubesWrap: {
-    flexDirection: "column",
-    flexWrap: "nowrap",
-    marginTop: 6,
-  },
-  club: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    marginBottom: 8,
-    width: "100%",
-  },
-  clubText: {
-    color: "#0A3D91",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 16
   },
   centerCol: {
     flex: 1,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   postCard: {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -260,32 +217,30 @@ volverTxt: {
     paddingHorizontal: 14,
     width: "90%",
     alignSelf: "center",
-    marginVertical: 8,
-    borderColor: "rgba(255, 255, 255, 0.1)",
-
+    marginVertical: 8
   },
   postAuthor: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 10
   },
   postDescription: {
     color: "#fff",
     fontSize: 18,
     textAlign: "center",
-    marginBottom: 14,
+    marginBottom: 14
   },
   card: {
     padding: 12,
     marginBottom: 10,
     width: "100%",
-    flex: 1,
+    flex: 1
   },
   empty: {
     textAlign: "center",
     color: "#777",
-    fontStyle: "italic",
+    fontStyle: "italic"
   },
   commentCard: {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -295,18 +250,18 @@ volverTxt: {
     width: 240,
     alignSelf: "center",
     marginVertical: 6,
-    borderWidth: 1,
+    borderWidth: 1
   },
   commentAuthor: {
     color: "#fff",
     fontSize: 15,
     fontWeight: "bold",
-    marginBottom: 6,
+    marginBottom: 6
   },
   commentText: {
     color: "#fff",
     fontSize: 15,
-    textAlign: "center",
+    textAlign: "center"
   },
   commentBox: {
     backgroundColor: "#fff",
@@ -315,12 +270,7 @@ volverTxt: {
     width: "75%",
     alignSelf: "center",
     marginTop: 12,
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 4,
+    marginBottom: 20
   },
   commentInput: {
     borderWidth: 1,
@@ -330,49 +280,26 @@ volverTxt: {
     fontSize: 15,
     color: "#000",
     backgroundColor: "#fff",
-    marginBottom: 10,
+    marginBottom: 10
   },
   commentButton: {
     backgroundColor: "#0A5AFF",
     borderRadius: 10,
     paddingVertical: 10,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   commentButtonText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 16,
-  },
-  rightCol: {
-    width: "25%",
-    paddingLeft: 10,
-    borderLeftWidth: 1,
-  },
-  rightTit: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  cardTit: {
-    color: "#FFFFFF",
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 3,
-  },
-  topic: {
-    color: "rgba(255,255,255,0.8)",
-    fontSize: 12,
+    fontSize: 16
   },
   acciones: {
     flexDirection: "row",
     justifyContent:"space-between",
     alignItems: "center",
     width:"100%",
-    gap: 110,
-    paddingTop: 6,
+    paddingTop: 6
   },
   boton: {
     paddingVertical: 8,
@@ -380,13 +307,18 @@ volverTxt: {
     borderRadius: 999,
     borderWidth: 1,
     borderColor: "#e5e7eb",
-    backgroundColor: "rgba(223, 183, 83, 1)",
+    backgroundColor: "rgba(223, 183, 83, 1)"
   },
   texto: {
     fontSize: 13,
     fontWeight: "bold",
-    color: "white",
+    color: "white"
   },
+  error: {
+    color: "red",
+    marginBottom: 6,
+    textAlign: "center"
+  }
 });
 
 export default Comentarios;
