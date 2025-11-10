@@ -13,21 +13,23 @@ class Register extends Component {
     };
   }
 
-  register(email, pass, userName) {
-    auth.createUserWithEmailAndPassword(email, pass)
-      .then(response => {
-        db.collection("users").add({
-          email: response.user.email,
-          nombreUsuario: userName,
-          createdAt: Date.now()
-        });
-
-        this.props.navigation.navigate("Login");
-      })
-      .catch(() => {
-        this.setState({ error: "No se pudo registrar." });
+register(email, pass, userName) {
+  auth.createUserWithEmailAndPassword(email, pass)
+    .then(response => {
+      db.collection("users").add({
+        email: response.user.email,
+        nombreUsuario: userName,
+        createdAt: Date.now()
       });
-  }
+      auth.signOut().then(() => {
+        this.props.navigation.navigate("Login");
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
 
   onSubmit() {
 

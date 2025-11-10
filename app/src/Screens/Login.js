@@ -14,7 +14,11 @@ login(email, pass){
    auth.signInWithEmailAndPassword(email, pass)
     .then((response) => {
         this.setState({loggedIn: true});
-        this.props.navigation.navigate('HomeMenu');
+        auth.onAuthStateChanged(user => {
+          if(user){
+            this.props.navigation.navigate('HomeMenu');
+          }
+        })
     })
      .catch( error => {
       this.setState({error: "credenciales invalidas"})
@@ -58,7 +62,7 @@ login(email, pass){
                       onChangeText={ text => this.setState({password:text}) }
                       value={this.state.password}/>  
                   <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
-                        <Text style={styles.buttonText}> Registrate </Text> 
+                        <Text style={styles.buttonText}> Inicia Sesion </Text> 
                       </Pressable>
                       {this.state.error ? (
                             <Text style={styles.error}>{this.state.error}</Text>
