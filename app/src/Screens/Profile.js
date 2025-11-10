@@ -138,10 +138,10 @@ flatlist: {
   flex: 1
 },
 logoutBtn: {
-  backgroundColor: "#d9534f",
+  backgroundColor: "red",
   paddingVertical: 12,
   paddingHorizontal: 16,
-  width: "90%",
+  width: "70%",
   borderRadius: 20,
   marginVertical: 16,
   alignItems: "center",

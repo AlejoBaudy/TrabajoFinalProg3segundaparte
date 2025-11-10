@@ -171,8 +171,7 @@ class Comentarios extends Component {
 
           <Pressable
             style={styles.volverBtn}
-            onPress={() => this.props.navigation.navigate("Home")}
-          >
+            onPress={() => this.props.navigation.navigate("HomeMenu", { screen: "Home" })}>
             <Text style={styles.volverTxt}>Home</Text>
           </Pressable>
         </View>
@@ -191,14 +190,14 @@ const styles = StyleSheet.create({
     paddingTop: 20
   },
   volverBtn: {
-    backgroundColor: "red",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    alignItems: "center",
-    alignSelf: "center",
-    marginBottom: 30,
-    marginTop: 10
+  backgroundColor: "red",
+  paddingVertical: 12,
+  paddingHorizontal: 16,
+  width: "70%",
+  borderRadius: 20,
+  marginVertical: 16,
+  alignItems: "center",
+  alignSelf: "center",
   },
   volverTxt: {
     color: "#fff",
@@ -210,27 +209,63 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20
   },
-  postCard: {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: 18,
-    paddingVertical: 18,
-    paddingHorizontal: 14,
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 8
-  },
-  postAuthor: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10
-  },
-  postDescription: {
-    color: "#fff",
-    fontSize: 18,
-    textAlign: "center",
-    marginBottom: 14
-  },
+postCard: {
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.3)",
+  borderRadius: 12,
+  padding: 14,
+  marginTop: 8,
+  width: 250,
+  alignSelf: "center",
+  backgroundColor: "rgba(255,255,255,0.1)",
+},
+
+postAuthor: {
+  fontSize: 17,
+  fontWeight: "bold",
+  color: "white",
+  marginBottom: 5,
+},
+
+postDescription: {
+  color: "#fff",
+  fontSize: 17,
+  textAlign: "center",  
+  marginBottom: 14,
+  alignSelf: "center", 
+  width: "90%",
+},
+
+commentCard: {
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.3)",
+  borderRadius: 12,
+  padding: 14,
+  marginTop: 8,
+  width: 250,
+  alignSelf: "center",
+  backgroundColor: "rgba(255,255,255,0.1)",
+},
+
+acciones: {
+  flexDirection: "row",
+  gap: 110,
+  paddingTop: 6,
+},
+
+boton: {
+  paddingVertical: 8,
+  paddingHorizontal: 14,
+  borderRadius: 999,
+  borderWidth: 1,
+  borderColor: "#e5e7eb",
+  backgroundColor: "rgba(223, 183, 83, 1)",
+},
+texto: {
+  fontSize: 13,
+  fontWeight: "bold",
+  color: "white",
+},
   card: {
     padding: 12,
     marginBottom: 10,
@@ -242,27 +277,33 @@ const styles = StyleSheet.create({
     color: "#777",
     fontStyle: "italic"
   },
-  commentCard: {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: 14,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    width: 240,
-    alignSelf: "center",
-    marginVertical: 6,
-    borderWidth: 1
-  },
-  commentAuthor: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 6
-  },
-  commentText: {
-    color: "#fff",
-    fontSize: 15,
-    textAlign: "center"
-  },
+commentCard: {
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.3)",
+  borderRadius: 12,
+  padding: 14,
+  marginTop: 8,
+  width: 200,
+  alignSelf: "center",
+  backgroundColor: "rgba(255,255,255,0.1)",
+},
+
+commentAuthor: {
+  fontSize: 17,
+  fontWeight: "bold",
+  color: "white",
+  marginBottom: 5,
+  textAlign: "left",
+    textAlign: "center",
+},
+
+commentText: {
+  color: "#fff",
+  fontSize: 17,
+  textAlign: "center",  
+  alignSelf: "center",  
+  width: "90%",
+},
   commentBox: {
     backgroundColor: "#fff",
     borderRadius: 16,
