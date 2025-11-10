@@ -161,7 +161,7 @@ class Comentarios extends Component {
             )}
           </View>
 
-          <View style={styles.commentBox}>
+         <View style={styles.commentBox}>
             <TextInput
               style={styles.commentInput}
               placeholder="Escribí tu comentario..."
@@ -180,9 +180,17 @@ class Comentarios extends Component {
               </Text>
             </Pressable>
           </View>
+
+          <Pressable
+            style={styles.volverBtn}
+            onPress={() => this.props.navigation.navigate("Comentarios")}
+          >
+            <Text style={styles.volverTxt}>Volver a Comentarios</Text>
+          </Pressable>
         </View>
         <RightCol />
       </View>
+
     );
   }
 }
@@ -196,6 +204,22 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 20,
   },
+  volverBtn: {
+  backgroundColor: "red",
+  paddingVertical: 12,
+  paddingHorizontal: 20,
+  borderRadius: 20,
+  alignItems: "center",
+  alignSelf: "center",
+  marginBottom: 30,
+  marginTop: 10,
+},
+volverTxt: {
+  color: "#fff",
+  fontWeight: "bold",
+  fontSize: 16,
+},
+
   leftCol: {
     width: "25%",
     paddingRight: 10,
