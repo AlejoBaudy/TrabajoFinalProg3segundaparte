@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList, TextInput, Pressable , ActivityIndicator} from "react-native";
+import {View,Text,StyleSheet,FlatList,TextInput,Pressable,ActivityIndicator} from "react-native";
 import { db, auth } from "../firebase/config";
 import firebase from "firebase";
 
@@ -12,16 +12,68 @@ class Comentarios extends Component {
       id: this.props.route.params.id,
       nuevoComentario: "",
       liked: false,
-      error: ""
+      error: "",
+      user: auth.currentUser
     };
   }
 
-  componentDidMount() { 
-    let me = auth.currentUser ? auth.currentUser.email : ""; 
-    let arr = this.state.info && this.state.info.likes ? this.state.info.likes : []; 
-    let yaLike = arr.includes(me);
-    this.setState({ liked: yaLike });
-  } 
+  // ✅ EXACTO MISMO FORMATO Y LÓGICA QUE Post
+  componentDidMount() {
+    const userEmail = this.state.user.email;
+    const arrayLikes = this.state.info.likes || [];
+
+    if (arrayLikes.includes(userEmail)) {
+      this.setState({ liked: true });
+    }
+  }
+
+  // ✅ LÓGICA IGUAL A Post + contador actualizado localmente
+  likear() {
+    const userEmail = this.state.user.email;
+    const postRef = db.collection("posts").doc(this.state.id);
+
+    postRef
+      .update({
+        likes: this.state.liked
+          ? firebase.firestore.FieldValue.arrayRemove(userEmail)
+          : firebase.firestore.FieldValue.arrayUnion(userEmail)
+      })
+      .then(() => {
+        const nuevoLiked = !this.state.liked;
+        const infoActual = { ...this.state.info };
+        const arr = infoActual.likes ? infoActual.likes : [];
+        const nuevoArr = [];
+
+        if (nuevoLiked) {
+          // LIKE
+          let yaEstaba = arr.includes(userEmail);
+
+          for (let i = 0; i < arr.length; i++) {
+            nuevoArr.push(arr[i]);
+          }
+
+          if (!yaEstaba) {
+            nuevoArr.push(userEmail);
+          }
+
+        } else {
+          // UNLIKE
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i] !== userEmail) {
+              nuevoArr.push(arr[i]);
+            }
+          }
+        }
+
+        infoActual.likes = nuevoArr;
+
+        this.setState({
+          liked: nuevoLiked,
+          info: infoActual
+        });
+      })
+      .catch(() => this.setState({ error: "No se pudo actualizar el like." }));
+  }
 
   onSubmit() {
     if (this.state.nuevoComentario === "") {
@@ -31,7 +83,7 @@ class Comentarios extends Component {
 
     this.setState({ loading: true, error: "" });
 
-    let nuevo = {
+    const nuevo = {
       id: Date.now().toString(),
       owner: auth.currentUser.email,
       comentario: this.state.nuevoComentario,
@@ -44,10 +96,16 @@ class Comentarios extends Component {
         Comentarios: firebase.firestore.FieldValue.arrayUnion(nuevo)
       })
       .then(() => {
-        let infoActual = this.state.info;
-        let lista = infoActual.Comentarios ? infoActual.Comentarios.slice() : [];
-        lista.push(nuevo);
-        infoActual.Comentarios = lista;
+        const infoActual = { ...this.state.info };
+        const lista = infoActual.Comentarios ? infoActual.Comentarios : [];
+        const nuevaLista = [];
+
+        for (let i = 0; i < lista.length; i++) {
+          nuevaLista.push(lista[i]);
+        }
+
+        nuevaLista.push(nuevo);
+        infoActual.Comentarios = nuevaLista;
 
         this.setState({
           nuevoComentario: "",
@@ -55,92 +113,57 @@ class Comentarios extends Component {
           info: infoActual
         });
       })
-      .catch(() => {
-        this.setState({ loading: false, error: "No se pudo publicar el comentario." });
-      });
-  }
-
-  likearLocal() { 
-    let me = auth.currentUser ? auth.currentUser.email : ""; 
-    let infoActual = this.state.info; 
-    let arr = infoActual.likes ? infoActual.likes : []; 
-
-    if (this.state.liked) {
-      let nuevoArr = [];
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] !== me) {
-          nuevoArr.push(arr[i]);
-        }
-      }
-
-      db.collection("posts")
-        .doc(this.state.id)
-        .update({
-          likes: firebase.firestore.FieldValue.arrayRemove(me)
+      .catch(() =>
+        this.setState({
+          loading: false,
+          error: "No se pudo publicar el comentario."
         })
-        .then(() => {
-          infoActual.likes = nuevoArr;
-          this.setState({ liked: false, info: infoActual });
-        });
-    } else { 
-      if (!arr.includes(me)) {
-        db.collection("posts")
-          .doc(this.state.id)
-          .update({
-            likes: firebase.firestore.FieldValue.arrayUnion(me)
-          })
-          .then(() => {
-            let nuevoArr = [];
-            for (let i = 0; i < arr.length; i++) {
-              nuevoArr.push(arr[i]);
-            }
-            nuevoArr.push(me);
-            infoActual.likes = nuevoArr;
-            this.setState({ liked: true, info: infoActual });
-          });
-      }
-    }
+      );
   }
 
   render() {
     if (this.state.loading) {
-          return (
-            <View style={styles.container}>
-              <ActivityIndicator color="#fff" />
-            </View>
-          );
-      }
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator color="#fff" />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.centerCol}>
+
+          {/* POST */}
           <View style={styles.postCard}>
             <Text style={styles.postAuthor}>{this.state.info.owner}</Text>
-            <Text style={styles.postDescription}>{this.state.info.description}</Text>
+            <Text style={styles.postDescription}>
+              {this.state.info.description}
+            </Text>
 
-            <View style={styles.acciones}> 
-              <Pressable
-                style={styles.boton}
-                onPress={() => this.likearLocal()}
-              >
+            <View style={styles.acciones}>
+              <Pressable style={styles.boton} onPress={() => this.likear()}>
                 <Text style={styles.texto}>
                   {this.state.liked ? "❤️" : "🤍"}{" "}
-                  {this.state.info && this.state.info.likes ? this.state.info.likes.length : 0}
+                  {this.state.info.likes ? this.state.info.likes.length : 0}
                 </Text>
               </Pressable>
 
-              <Pressable
-                style={styles.boton}
-                onPress={() => {}}
-              >
+              <Pressable style={styles.boton}>
                 <Text style={styles.texto}>
-                  💬 {this.state.info && this.state.info.Comentarios ? this.state.info.Comentarios.length : 0}
+                  💬{" "}
+                  {this.state.info.Comentarios
+                    ? this.state.info.Comentarios.length
+                    : 0}
                 </Text>
               </Pressable>
             </View>
           </View>
 
+          {/* LISTA COMENTARIOS */}
           <View style={styles.card}>
-            {this.state.info.Comentarios && this.state.info.Comentarios.length > 0 ? (
+            {this.state.info.Comentarios &&
+            this.state.info.Comentarios.length > 0 ? (
               <FlatList
                 data={this.state.info.Comentarios}
                 keyExtractor={(item) => item.id}
@@ -156,32 +179,34 @@ class Comentarios extends Component {
             )}
           </View>
 
+          {/* CAJA DE COMENTARIO */}
           <View style={styles.commentBox}>
             <TextInput
               style={styles.commentInput}
               placeholder="Escribí tu comentario..."
               placeholderTextColor="#555"
               value={this.state.nuevoComentario}
-              onChangeText={(text) => this.setState({ nuevoComentario: text })}
+              onChangeText={(t) => this.setState({ nuevoComentario: t })}
             />
 
             {this.state.error ? (
               <Text style={styles.error}>{this.state.error}</Text>
             ) : null}
 
-            <Pressable style={styles.commentButton} onPress={() => this.onSubmit()}>
-              <Text style={styles.commentButtonText}>
-                {this.state.loading ? "Publicando..." : "Publicar"}
-              </Text>
+            <Pressable
+              style={styles.commentButton}
+              onPress={() => this.onSubmit()}
+            >
+              <Text style={styles.commentButtonText}>Publicar</Text>
             </Pressable>
           </View>
 
-         <Pressable
+          <Pressable
             style={styles.volverBtn}
-            onPress={() => { console.log("apreté"), this.props.navigation.navigate("HomePage")}}>
+            onPress={() => this.props.navigation.navigate("HomePage")}
+          >
             <Text style={styles.volverTxt}>Volver a Home</Text>
-        </Pressable>
-
+          </Pressable>
         </View>
       </View>
     );
