@@ -79,7 +79,7 @@ class Comentarios extends Component {
       );
     }
 
-    const comentarios = this.state.post.data.Comentarios || [];
+    const comentarios = this.state.post.data.Comentarios;
 
     return (
       <View style={styles.container}>
@@ -99,7 +99,7 @@ class Comentarios extends Component {
                 )}
               />
             ) : (
-              <Text style={styles.empty}>Aún no hay comentarios.</Text>
+              <Text style={styles.noComents}>Aún no hay comentarios.</Text>
             )}
           </View>
 
@@ -156,7 +156,7 @@ class Comentarios extends Component {
     marginBottom: 10 
   },
 
-  empty: { 
+  noComents: { 
     textAlign: "center", 
     color: "#777", 
     fontStyle: "italic" 
