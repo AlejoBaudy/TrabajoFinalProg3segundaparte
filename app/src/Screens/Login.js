@@ -73,12 +73,14 @@ login(email, pass){
                       secureTextEntry={true} 
                       onChangeText={ text => this.setState({password:text}) }
                       value={this.state.password}/>  
-                  <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
-                        <Text style={styles.buttonText}> Inicia Sesion </Text> 
-                      </Pressable>
+                      
                       {this.state.error ? (
                             <Text style={styles.error}>{this.state.error}</Text>
                           ) : null} 
+                  <Pressable style={styles.button1} onPress={() => this.onSubmit()}>
+                        <Text style={styles.buttonText}> Inicia Sesion </Text> 
+                      </Pressable>
+                      
           <Pressable
             style={styles.button2}
             onPress={() => this.props.navigation.navigate('Register')}>

@@ -52,7 +52,7 @@ this.setState({
 
   logout() {
     auth.signOut().then(() => {
-      this.props.navigation.navigate("Login");
+      this.props.navigation.navigate("StackHome");
     });
   }
 
