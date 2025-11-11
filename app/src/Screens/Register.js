@@ -123,89 +123,79 @@ if (this.state.password.length < 6) {
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  backgroundColor: "#0A5AFF",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  paddingHorizontal: 20,
-},
+  container: {
+    flex: 1,
+    backgroundColor: "#0A5AFF",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
 
-izq: {
-  alignItems: "center",
-  justifyContent: "center",
-  marginBottom: 20,
-},
+  izq: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
 
-bigLogo: {
-  width: 140,
-  height: 140,
-},
+  bigLogo: {
+    width: 140,
+    height: 140,
+  },
 
-der: {
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 18,
-  paddingHorizontal: 24,
-},
+  der: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 18,
+  },
 
-titulo: {
-  fontSize: 28,
-  fontWeight: "bold",
-  color: "white",
-  textAlign: "center",
-  marginBottom: 10,
-},
+  titulo: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+  },
 
-bloque: {
-  width: "90%",
-  backgroundColor: "white",
-  borderRadius: 12,
-  paddingHorizontal: 15,
-  paddingVertical: 12,
-  fontSize: 16,
-  marginVertical: 6,
-  color: "black",
-  borderWidth: 0,
-},
+  bloque: {
+    width: "90%",
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 12,
+    fontSize: 16,
+    color: "black",
+  },
 
-button1: {
-  width: "90%",
-  backgroundColor: "rgba(122, 206, 245, 1)",
-  paddingVertical: 14,
-  borderRadius: 25,
-  alignItems: "center",
-  justifyContent: "center",
-  marginTop: 10,
-  borderWidth: 0,
-},
+  button1: {
+    width: "90%",
+    backgroundColor: "rgba(122, 206, 245, 1)",
+    paddingVertical: 14,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-buttonText: {
-  color: "#fff",
-  fontSize: 16,
-  fontWeight: "bold",
-},
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 
-button2: {
-  width: "90%",
-  backgroundColor: "rgba(223, 183, 83, 1)",
-  borderRadius: 25,
-  paddingVertical: 14,
-  alignItems: "center",
-  justifyContent: "center",
-  marginTop: 8,
-},
+  button2: {
+    width: "90%",
+    backgroundColor: "rgba(223, 183, 83, 1)",
+    borderRadius: 25,
+    paddingVertical: 14,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-error: {
-  color: "red",
-  marginTop: 8,
-  fontSize: 14,
-  textAlign: "center",
-  fontWeight: "600",
-},
-
+  error: {
+    color: "red",
+    marginTop: 8,
+    fontSize: 14,
+    textAlign: "center",
+    fontWeight: "600",
+  },
 });
 
 export default Register;

@@ -73,13 +73,12 @@ class NewPost extends Component {
   }
 }
 
-const BLUE = "#0A5AFF";
-const WHITE = "#FFFFFF";
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: BLUE,
+    backgroundColor: "#0A5AFF",
     alignItems: "center",
     justifyContent: "flex-start",
     paddingTop: 60,
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   titulo: {
-    color: WHITE,
+    color: "white",
     fontSize: 26,
     fontWeight: "bold",
     marginBottom: 20,
@@ -98,32 +97,31 @@ const styles = StyleSheet.create({
   field: {
     width: "85%",
     height: 60,
-    backgroundColor: WHITE,
+    backgroundColor: "white",
     borderRadius: 12,
     paddingHorizontal: 15,
     fontSize: 16,
     marginBottom: 10,
   },
   error: {
-    color: "#ffdddd",
-    backgroundColor: "#7a0000",
-    borderRadius: 8,
+    color: "red",
     paddingVertical: 6,
     paddingHorizontal: 10,
     marginBottom: 12,
   },
   boton: {
-    backgroundColor: WHITE,
+    backgroundColor: "white",
     borderRadius: 30,
     paddingVertical: 14,
     paddingHorizontal: 40,
     alignItems: "center",
   },
   botonTexto: {
-    color: BLUE,
+    color: "blue",
     fontSize: 16,
     fontWeight: "bold",
   },
 });
+
 
 export default NewPost;

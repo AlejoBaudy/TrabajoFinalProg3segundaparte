@@ -9,6 +9,7 @@ import HomeMenu from "./src/components/HomeMenu";
 import NewPost from "./src/screens/NewPost";
 import Comentarios from "./src/screens/Comentarios";
 import StackPresent from "./src/screens/StackPresent";
+import Home from "./src/screens/Home";
 
 const Stack = createNativeStackNavigator();
 

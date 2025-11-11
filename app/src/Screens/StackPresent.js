@@ -50,87 +50,80 @@ import { auth } from "../firebase/config"
 
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  backgroundColor: "#0A5AFF",
-  flexDirection: "column",
-  paddingHorizontal: 20,
-  justifyContent: "center",
-  alignItems: "center",
-},
+  container: {
+    flex: 1,
+    backgroundColor: "#0A5AFF",
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
-izq: {
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-  marginBottom: 16,
-},
+  izq: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 16,
+  },
 
-bigLogo: {
-  width: 140,
-  height: 140,
-},
+  bigLogo: {
+    width: 140,
+    height: 140,
+  },
 
-der: {
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 18,
-  paddingHorizontal: 24,
-},
+  der: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 18,
+    paddingHorizontal: 24,
+  },
 
-titulo: {
-  color: "white",
-  fontSize: 28,
-  fontWeight: "bold",
-  textAlign: "center",
-  marginLeft: 0,
-},
+  titulo: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 
-subtitulo: {
-  color: "white",
-  fontSize: 18,
-  fontWeight: "bold",
-  marginTop: 8,
-  textAlign: "center",
-},
+  subtitulo: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 
-Login: {
-  width: "92%",
-  paddingVertical: 16,
-  borderRadius: 28,
-  borderWidth: 1,
-  borderColor: "rgba(255,255,255,0.6)",
-  backgroundColor: "transparent",
-  alignItems: "center",
-  justifyContent: "center",
-  alignSelf: "center",
-},
+  Login: {
+    width: "92%",
+    paddingVertical: 16,
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.6)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-Registro: {
-  width: "92%",
-  paddingVertical: 16,
-  borderRadius: 28,
-  borderWidth: 1,
-  borderColor: "white",
-  backgroundColor: "white",
-  alignItems: "center",
-  justifyContent: "center",
-  alignSelf: "center",
-},
+  Registro: {
+    width: "92%",
+    paddingVertical: 16,
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: "white",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-Cuenta: {
-  color: "#000",
-  fontSize: 16,
-  fontWeight: "bold",
-},
+  Cuenta: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 
-InciarSesion: {
-  color: "white",
-  fontSize: 18,
-  fontWeight: "bold",
-},
-
+  InciarSesion: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 });
+
 
 export default StackPresent

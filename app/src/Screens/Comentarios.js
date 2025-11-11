@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, FlatList, TextInput, Pressable , ActivityIndicator} from "react-native";
 import { db, auth } from "../firebase/config";
 import firebase from "firebase";
 
@@ -103,6 +103,13 @@ class Comentarios extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+          return (
+            <View style={styles.container}>
+              <ActivityIndicator color="#fff" />
+            </View>
+          );
+      }
     return (
       <View style={styles.container}>
         <View style={styles.centerCol}>
@@ -169,11 +176,12 @@ class Comentarios extends Component {
             </Pressable>
           </View>
 
-          <Pressable
+         <Pressable
             style={styles.volverBtn}
-            onPress={() => this.props.navigation.navigate("HomeMenu", { screen: "Home" })}>
-            <Text style={styles.volverTxt}>Home</Text>
-          </Pressable>
+            onPress={() => { console.log("apreté"), this.props.navigation.navigate("HomePage")}}>
+            <Text style={styles.volverTxt}>Volver a Home</Text>
+        </Pressable>
+
         </View>
       </View>
     );

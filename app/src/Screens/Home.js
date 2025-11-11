@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 20,
   },
+
   centerCol: {
     flex: 1,
     alignItems: "center",

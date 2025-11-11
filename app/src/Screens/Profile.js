@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList, Pressable, Image } from "react-native";
+import { View, Text, StyleSheet, FlatList, Pressable, Image, ActivityIndicator} from "react-native";
 import { auth, db } from "../firebase/config";
 import Post from "../components/Post";
 
@@ -57,7 +57,14 @@ this.setState({
   }
 
   render() {
-return (
+      if (this.state.loading) {
+          return (
+            <View style={styles.container}>
+              <ActivityIndicator color="#fff" />
+            </View>
+          );
+        }
+  return (
   <View style={styles.container}>
     <View style={styles.centerCol}>
       <Image source={require("../../assets/Anonimo.jpg")} style={styles.avatar} />
@@ -84,74 +91,63 @@ return (
 
   }
 }
-
 const styles = StyleSheet.create({
   container: {
-  flex: 1,
-  backgroundColor: "#0A5AFF",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  paddingHorizontal: 16,
-  paddingTop: 16,
-},
-centerCol: {
-   width: "100%",
-  flex: 1,
-  alignItems: "center",
-  paddingHorizontal: 16,
-  borderLeftWidth: 0,
-  borderRightWidth: 0,
-  borderColor: "transparent",
-},
-avatar: {
-  width: 120,
-  height: 120,
-  borderRadius: 60,
-  marginBottom: 10,
-  resizeMode: "contain",
-},
-name: {
-  color: "#FFFFFF",
-  fontSize: 22,
-  fontWeight: "bold",
-  marginTop: 4,
-  marginBottom: 2,
-  textAlign: "center",
-},
-email: {
-  color: "rgba(255,255,255,0.8)",
-  fontSize: 13,
-  marginBottom: 14,
-  textAlign: "center",
-},
-sectionTitle: {
-  color: "#FFFFFF",
-  fontSize: 18,
-  fontWeight: "bold",
-  textAlign: "center",
-  marginBottom: 8,
-  width: "100%",
-},
-flatlist: {
-  width: "100%",
-  flex: 1
-},
-logoutBtn: {
-  backgroundColor: "red",
-  paddingVertical: 12,
-  paddingHorizontal: 16,
-  width: "70%",
-  borderRadius: 20,
-  marginVertical: 16,
-  alignItems: "center",
-  alignSelf: "center",
-},
-logoutText: {
-  color: "#fff",
-  fontWeight: "bold",
-},
-
+    flex: 1,
+    backgroundColor: "#0A5AFF",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 16,
+  },
+  centerCol: {
+    width: "100%",
+    flex: 1,
+    alignItems: "center",
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 10,
+    resizeMode: "contain",
+  },
+  name: {
+    color: "#FFFFFF",
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 2,
+    textAlign: "center",
+  },
+  email: {
+    color: "rgba(255,255,255,0.8)",
+    fontSize: 13,
+    marginBottom: 14,
+    textAlign: "center",
+  },
+  sectionTitle: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  flatlist: {
+    width: "100%",
+    flex: 1,
+    alignItems: "center",
+  },
+  logoutBtn: {
+    backgroundColor: "red",
+    paddingVertical: 12,
+    width: "70%",
+    borderRadius: 20,
+    marginVertical: 16,
+    alignItems: "center",
+  },
+  logoutText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
 });
 
 

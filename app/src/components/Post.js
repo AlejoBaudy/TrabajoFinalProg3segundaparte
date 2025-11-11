@@ -67,31 +67,33 @@ render() {
 const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
-    borderColor: "black",
     borderRadius: 12,
     padding: 14,
     marginTop: 8,
     width: 250,
     alignSelf: "center",
     backgroundColor: "rgba(255,255,255,0.1)",
-    borderColor: "rgba(255,255,255,0.3)"
+    borderColor: "rgba(255,255,255,0.3)",
   },
   nombre: {
     fontSize: 17,
     fontWeight: "bold",
     color: "white",
-    marginBottom: 5
+    textAlign: "center",
+    marginBottom: 5,
   },
   descripcion: {
     fontSize: 17,
     color: "white",
+    marginTop: 15,
+    textAlign: "center",
     marginBottom: 10,
-    marginTop: 13
   },
   acciones: {
     flexDirection: "row",
-    gap: 110,
-    paddingTop: 6
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 6,
   },
   boton: {
     paddingVertical: 8,
@@ -99,13 +101,14 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 1,
     borderColor: "#e5e7eb",
-    backgroundColor: "rgba(223, 183, 83, 1)"
+    backgroundColor: "rgba(223, 183, 83, 1)",
   },
   texto: {
     fontSize: 13,
     fontWeight: "bold",
-    color: "white"
-  }
+    color: "white",
+  },
 });
+
 
 export default Post;
