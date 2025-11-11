@@ -20,20 +20,22 @@ register(email, pass, userName) {
         email: response.user.email,
         nombreUsuario: userName,
         createdAt: Date.now()
-      });
-      auth.signOut().then(() => {
+      })
+      .then(() => {
+        return auth.signOut();
+      })
+      .then(() => {
         this.props.navigation.navigate("Login");
       });
     })
     .catch(error => {
-      console.log(error.message)
-      if(error.message.includes("The email address is already in use by another account")){
-        this.setState({
-          error: "Este mail ya esta registrado"
-        })
+      console.log(error.message);
+      if (error.message.includes("The email address is already in use by another account")) {
+        this.setState({ error: "Este mail ya está registrado" });
       }
     });
 }
+
   onSubmit() {
     if (this.state.email === "") {
   this.setState({ error: "Falta completar campos obligatorios." });
