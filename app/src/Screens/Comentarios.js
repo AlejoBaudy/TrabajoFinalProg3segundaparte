@@ -122,14 +122,19 @@ class Comentarios extends Component {
           </View>
 
           <Pressable
-            style={styles.volverBtn}
-            onPress={() => {
-              console.log("apreté");
-              this.props.navigation.navigate("HomePage");
-            }}
-          >
-            <Text style={styles.volverTxt}>Volver a Home</Text>
-          </Pressable>
+                style={styles.volverBtn}
+                onPress={() => {
+                  console.log("apreté");
+                  if (this.props.route.params.from === "profile") {
+                    this.props.navigation.navigate("HomeMenu", { screen: "HomePage" });
+                  } else {
+                    this.props.navigation.navigate("Home", { screen: "HomePage" });
+                  }
+                }}
+              >
+                <Text style={styles.volverTxt}>Volver</Text>
+              </Pressable>
+
         </View>
       </View>
     );

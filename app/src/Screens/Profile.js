@@ -77,7 +77,7 @@ this.setState({
         data={this.state.myPosts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Post post={item} navigation={this.props.navigation} />
+          <Post post={item} navigation={this.props.navigation} origen="profile" />
         )}
       />
       </View>

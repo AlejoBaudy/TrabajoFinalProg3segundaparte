@@ -39,7 +39,7 @@ class Home extends Component {
             data={this.state.posts}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Post post={item} navigation={this.props.navigation} />
+              <Post post={item} navigation={this.props.navigation} origen="home" />
             )}
           />
         </View>

@@ -50,6 +50,7 @@ render() {
               this.props.navigation.navigate("Comentarios", {
                 info: this.props.post.data,
                 id: this.props.post.id,
+                from: this.props.origen
               });
             } 
           }
